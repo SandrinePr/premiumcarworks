@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
+import CountUp from 'react-countup';
+import { useInView } from 'react-intersection-observer';
 import './DetailingPakketten.css';
 
 const DetailingPakketten = () => {
   const [selectedVehicle, setSelectedVehicle] = useState('klein');
+  const [ref, inView] = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
 
   const vehicleTypes = [
     {
@@ -36,7 +42,7 @@ const DetailingPakketten = () => {
       id: 1,
       title: 'PAKKET 1',
       subtitle: 'Basis Detailing',
-      price: 'Vanaf €249',
+      price: 249,
       duration: '4-6 uur',
       services: [
         { name: 'Exterieur Reiniging', level: 20, included: true },
@@ -50,7 +56,7 @@ const DetailingPakketten = () => {
       id: 2,
       title: 'PAKKET 2',
       subtitle: 'Uitgebreide Detailing',
-      price: 'Vanaf €369',
+      price: 369,
       duration: '6-8 uur',
       services: [
         { name: 'Exterieur Reiniging', level: 40, included: true },
@@ -64,7 +70,7 @@ const DetailingPakketten = () => {
       id: 3,
       title: 'PAKKET 3',
       subtitle: 'Premium Detailing',
-      price: 'Vanaf €729',
+      price: 729,
       duration: '8-12 uur',
       services: [
         { name: 'Exterieur Reiniging', level: 80, included: true },
@@ -78,7 +84,7 @@ const DetailingPakketten = () => {
       id: 4,
       title: 'PREMIUM-PAKKET',
       subtitle: 'Ultimate Detailing',
-      price: 'Vanaf €1.309',
+      price: 1309,
       duration: '12-16 uur',
       services: [
         { name: 'Exterieur Reiniging', level: 100, included: true },
@@ -143,7 +149,7 @@ const DetailingPakketten = () => {
           </div>
         </div>
 
-        <div className="packages-section">
+        <div className="packages-section" ref={ref}>
           <h2>Beschikbare pakketten voor {vehicleTypes.find(v => v.id === selectedVehicle)?.name} voertuigen</h2>
           <div className="packages-grid">
             {packages.map((pkg) => (
@@ -162,7 +168,13 @@ const DetailingPakketten = () => {
                 </div>
                 
                 <div className="package-price">
-                  <span className="price-amount">{pkg.price}</span>
+                  <span className="price-amount">
+                    {inView ? (
+                      <CountUp end={pkg.price} duration={1} prefix="Vanaf €" />
+                    ) : (
+                      'Vanaf €0'
+                    )}
+                  </span>
                   <span className="price-duration">{pkg.duration}</span>
                 </div>
                 
@@ -219,7 +231,7 @@ const DetailingPakketten = () => {
         <div className="contact-section">
           <div className="contact-card">
             <h3>Niet zeker over uw keuze?</h3>
-            <p>Neem gerust contact met ons op voor persoonlijk advies</p>
+            <p>Neem gerust contact met ons op voor persoonlijk advies</p>port default DetailingPakketten;
             <button className="btn-contact" onClick={() => window.open('https://wa.me/31432340800', '_blank')}>
               <i className="fab fa-whatsapp"></i>
               Gratis adviesgesprek
@@ -231,4 +243,4 @@ const DetailingPakketten = () => {
   );
 };
 
-export default DetailingPakketten; 
+export default DetailingPakketten;

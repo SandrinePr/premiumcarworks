@@ -1,5 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { FaWhatsapp, FaFacebook, FaInstagram, FaCalendarAlt, FaUsers, FaUserTie, FaStar } from 'react-icons/fa';
+import CountUp from 'react-countup';
+import { useInView } from 'react-intersection-observer';
 import Header from './components/Header/Header';
 import Hero from './components/Hero/Hero';
 import Welcome from './components/Welcome/Welcome';
@@ -21,12 +24,116 @@ import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import './App.css';
 
 function HomePage() {
+  const [statsRef, statsInView] = useInView({
+    threshold: 0.3,
+    triggerOnce: true, // animatie maar 1x
+  });
+
   return (
     <>
       <Hero />
       <Welcome />
       <WhyChooseUs />
-      <Statistics />
+
+      {/* Social + statistieken blok NA de pakketten */}
+      <div
+        style={{
+          margin: '3rem 0',
+          padding: '2rem 1rem',
+          maxWidth: 1100,
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '2.5rem', marginBottom: '2.5rem', flexWrap: 'wrap' }}>
+          <a
+            href="https://wa.me/31612345678"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: '#00bcd4', // turquoise
+              textDecoration: 'none',
+              fontSize: '1.15rem',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              minWidth: 120,
+              transition: 'transform 0.2s',
+            }}
+          >
+            <FaWhatsapp style={{ fontSize: '2.1rem', marginBottom: 6, color: '#00bcd4' }} />
+            <strong>WhatsApp</strong>
+            <span style={{ fontWeight: 'normal', fontSize: '1rem' }}>Stuur ons een bericht</span>
+          </a>
+          <a
+            href="https://facebook.com/jouwpagina"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: '#00bcd4', // turquoise
+              textDecoration: 'none',
+              fontSize: '1.15rem',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              minWidth: 120,
+              transition: 'transform 0.2s',
+            }}
+          >
+            <FaFacebook style={{ fontSize: '2.1rem', marginBottom: 6, color: '#00bcd4' }} />
+            <strong>Facebook</strong>
+            <span style={{ fontWeight: 'normal', fontSize: '1rem' }}>Bekijk onze pagina</span>
+          </a>
+          <a
+            href="https://instagram.com/jouwprojecten"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: '#00bcd4', // turquoise
+              textDecoration: 'none',
+              fontSize: '1.15rem',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              minWidth: 120,
+              transition: 'transform 0.2s',
+            }}
+          >
+            <FaInstagram style={{ fontSize: '2.1rem', marginBottom: 6, color: '#00bcd4' }} />
+            <strong>Instagram</strong>
+            <span style={{ fontWeight: 'normal', fontSize: '1rem' }}>Bekijk onze projecten</span>
+          </a>
+        </div>
+        <div
+          ref={statsRef}
+          style={{ display: 'flex', justifyContent: 'center', gap: '3rem', flexWrap: 'wrap' }}
+        >
+          <div style={{ fontWeight: 'bold', fontSize: '1.5rem', textAlign: 'center', minWidth: 120 }}>
+            <FaCalendarAlt style={{ fontSize: '2.2rem', color: '#00bcd4', marginBottom: 6 }} /><br />
+            {statsInView ? <CountUp end={6} duration={1} /> : 0}+<br />
+            <span style={{ fontWeight: 'normal', fontSize: '1rem', color: '#555' }}>JAREN ERVARING</span>
+          </div>
+          <div style={{ fontWeight: 'bold', fontSize: '1.5rem', textAlign: 'center', minWidth: 120 }}>
+            <FaUsers style={{ fontSize: '2.2rem', color: '#00bcd4', marginBottom: 6 }} /><br />
+            {statsInView ? <CountUp end={175} duration={1} /> : 0}+<br />
+            <span style={{ fontWeight: 'normal', fontSize: '1rem', color: '#555' }}>TROUWE KLANTEN</span>
+          </div>
+          <div style={{ fontWeight: 'bold', fontSize: '1.5rem', textAlign: 'center', minWidth: 120 }}>
+            <FaUserTie style={{ fontSize: '2.2rem', color: '#00bcd4', marginBottom: 6 }} /><br />
+            {statsInView ? <CountUp end={2} duration={1} /> : 0}+<br />
+            <span style={{ fontWeight: 'normal', fontSize: '1rem', color: '#555' }}>TEAM LEDEN</span>
+          </div>
+          <div style={{ fontWeight: 'bold', fontSize: '1.5rem', textAlign: 'center', minWidth: 120 }}>
+            <FaStar style={{ fontSize: '2.2rem', color: '#00bcd4', marginBottom: 6 }} /><br />
+            <span style={{ fontSize: '1.5rem' }}>
+              {statsInView ? <CountUp end={5} duration={1} /> : 0}/5
+            </span><br />
+            <span style={{ fontWeight: 'normal', fontSize: '1rem', color: '#555' }}>KLANTENBEOORDELING</span>
+          </div>
+        </div>
+      </div>
+
+
       <Reviews />
     </>
   );
@@ -57,4 +164,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;
