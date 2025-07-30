@@ -1,0 +1,53 @@
+.App {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Section IDs for navigation */
+#home {
+  scroll-margin-top: 100px;
+}
+
+#detailing {
+  scroll-margin-top: 100px;
+}
+
+#service {
+  scroll-margin-top: 100px;
+}
+
+#customs {
+  scroll-margin-top: 100px;
+}
+
+#gallery {
+  scroll-margin-top: 100px;
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Focus styles for accessibility */
+button:focus,
+a:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .header,
+  .cookie-consent,
+  .carousel-btn,
+  .scroll-indicator {
+    display: none !important;
+  }
+} 
